@@ -1,6 +1,11 @@
 import webpack from 'webpack';
 import path from 'path';
 
+const GLOBALS = {
+  'process.env.NODE_ENV': JSON.stringify('development'),
+  'process.env.API_KEY': JSON.stringify('-ar_PDsmkJwNtrQNLqsn')
+};
+
 export default {
   entry: [
     'webpack-hot-middleware/client?reload=true',
@@ -19,13 +24,20 @@ export default {
     historyApiFallback: true  // loads index page on any 404 
   },
   plugins: [
+    new webpack.DefinePlugin(GLOBALS),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
   ],
   module: {
     rules: [  
       {test: /\.js$/, include: path.join(__dirname, 'src'), loader: 'babel-loader'},
-      {test: /(\.css)$/, use: [{loader: 'style-loader'}, {loader: 'css-loader'}]},
+      {test: /(\.scss)$/, 
+        use: [
+          {loader: 'style-loader'}, 
+          {loader: 'css-loader'},
+          {loader: 'sass-loader'},
+        ],
+      },
       {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml"},
       {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file"}
     ],

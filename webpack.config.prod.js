@@ -3,7 +3,8 @@ import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const GLOBALS = {
-  'process.env.NODE_ENV': JSON.stringify('production')
+  'process.env.NODE_ENV': JSON.stringify('production'),
+  'process.env.API_KEY': JSON.stringify('-ar_PDsmkJwNtrQNLqsn'),
 };
 
 export default {
@@ -22,7 +23,7 @@ export default {
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),  // optimizes the order in which our files are bundled 
-    new webpack.DefinePlugin(GLOBALS),  
+    new webpack.DefinePlugin(GLOBALS),    // allows to create global constants
     new ExtractTextPlugin('styles.css'),  // extracts the css file into a seperate file
     new webpack.optimize.DedupePlugin(),  // eliminates duplicate packages in our filnal bundle
     new webpack.optimize.UglifyJsPlugin() // minification
