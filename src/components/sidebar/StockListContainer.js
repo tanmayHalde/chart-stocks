@@ -17,7 +17,6 @@ class StockListContainer extends Component {
     // let socket = io('https://th-stockchart.herokuapp.com/');
     let socket = io('http://localhost:3000');
     this.state = {
-      stockCode: '',
       socket: socket,
       stocks: props.stocks
     };
@@ -43,12 +42,10 @@ class StockListContainer extends Component {
     });
   }
 
-  addStock() {
-    this.props.actions.addStock(this.state.stockCode, this.socket)
+  addStock(code) {
+    this.props.actions.addStock(code, this.socket)
       .then(() => {
-        this.setState({
-          stockCode: ''
-        });
+        toastr.success('New stock added');
       })
       .catch(err => {
         toastr.error(err);
@@ -63,6 +60,7 @@ class StockListContainer extends Component {
 
   removeStock(event) {
     const code = event.target.code;
+    debugger;
     this.props.actions.removeStock(code)
       .then(() => {
         toastr.info('Stock removed');
@@ -77,8 +75,6 @@ class StockListContainer extends Component {
       <div className="sidebar-container">
         <SearchBox
           addStock = {this.addStock}
-          handleInputChange = {this.handleInputChange}
-          stockCode = {this.state.stockCode}
         />
         <StockList 
           items = {this.state.stocks}
