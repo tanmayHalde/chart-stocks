@@ -8,6 +8,7 @@ import toastr from 'toastr';
 import SearchBox from './SearchBox';
 import StockList from './StockList';
 import * as stockActions from '../../actions/stockActions';
+import { stockExists } from '../../utils/stockDataHandler';
 import './StockListContainer.scss';
 
 class StockListContainer extends Component {
@@ -44,14 +45,18 @@ class StockListContainer extends Component {
   }
 
   addStock(code) {
-    console.log('Adding stock, socket is: ', this.state.socket);
-    this.props.actions.addStock(code, this.state.socket)
+    if (stockExists(this.state.stocks, code)) {
+      console.log('stock already exists');
+      toastr.warning('Stock already exists !');
+    } else {
+      this.props.actions.addStock(code, this.state.socket)
       .then(() => {
         toastr.success('New stock added');
       })
       .catch(err => {
         toastr.error(err);
       });
+    }
   }
 
   handleInputChange(event) {
@@ -91,6 +96,7 @@ StockListContainer.propTypes = {
   actions: PropTypes.object.isRequired
 };
 
+// TODO: returning only 2 object props may break things later if more props required..
 function getRequiredStockProps(stocks) {
   return stocks.map(stock => {
     return {

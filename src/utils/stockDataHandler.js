@@ -1,8 +1,9 @@
+import _ from 'lodash';
+
 export function getRequiredStockProps(stocks) {
   if (!stocks) {
     return null;
   }
-  
   return new Promise((resolve, reject) => {
     resolve(stocks.map(stock => {
       const stockData = convertStockDataToHighstockFormat(stock.dataset.data)
@@ -30,7 +31,7 @@ function convertStockDataToHighstockFormat(stockData) {
 }
 
 /**
- * Gives Date in Unix time from Quandl api reponse data
+ * Gives Date in Unix time from Quandl api reponse data.
  * @param stockData array containing daily stock data
  * @return Unix Date
  */
@@ -41,7 +42,7 @@ function getDateFromStock(stockData) {
 }
 
 /**
- * Gives closing price from Quandl api reponse data
+ * Gives closing price from Quandl api reponse data.
  * @param stockData object containing daily stock data
  * @return closing price
  */
@@ -49,6 +50,15 @@ function getClosingPriceFromStock(stockData) {
   // NOTE: Stock closing index is specific to quandl's api response
   const STOCK_CLOSING_PRICE_INDEX = 4;
   return stockData[STOCK_CLOSING_PRICE_INDEX];
+}
+
+/**
+ * Determine if stock data already rendered.
+ * @param stocks List of stocks already rendered
+ * @return 'true' if stock already rendered on chart, 'false' otherwise  
+ */
+export function stockExists(stocks, newStockCode) {
+  return _.some(stocks, ['code', newStockCode.toUpperCase()]);
 }
 
 // other funcions to get data for the tooltip

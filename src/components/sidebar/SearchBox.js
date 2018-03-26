@@ -26,9 +26,16 @@ class SearchBox extends Component {
   }
 
   handleInputChange(event) {
-    return this.setState({
-      value: event.target.value
-    });
+    if (event.key === "Enter") {
+      event.preventDefault();
+      this.addStock();
+    } else {
+      let newValue = this.state.value + event.key;
+      return this.setState({
+        value: newValue
+      });
+    }
+ 
   }
 
   render() {
@@ -37,14 +44,15 @@ class SearchBox extends Component {
         <FormGroup>
           <FormControl 
             type="text" 
-            value={this.state.value} 
-            onChange={this.handleInputChange}
-            placeholder="Enter Stock Code" 
+            value={this.state.value}
+            placeholder="Enter Stock Code"
+            onKeyPress={this.handleInputChange}
           />
           <Button 
             className="search-icon"
-            onClick={this.addStock}>
-            ADD
+            onClick={this.addStock}
+            type="button">
+            ADD 
           </Button>
         </FormGroup>
       </form>
