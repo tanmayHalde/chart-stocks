@@ -25,7 +25,6 @@ class Chart extends Component {
           config: newConfig
         });
       })
- 
   }
 
   render() {
