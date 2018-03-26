@@ -14,7 +14,7 @@ class StockListContainer extends Component {
   constructor(props) {
     super(props);
     
-    // let socket = io('https://createdd-stockmarketchart.herokuapp.com/');
+    // let socket = io('https://th-stockchart.herokuapp.com/');
     let socket = io('http://localhost:3000');
     this.state = {
       stockCode: '',
@@ -38,7 +38,6 @@ class StockListContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('state will now be updated ');
     this.setState({
       stocks: nextProps.stocks
     });
@@ -64,7 +63,6 @@ class StockListContainer extends Component {
 
   removeStock(event) {
     const code = event.target.code;
-    console.log('stock to be removed: ', code)
     this.props.actions.removeStock(code)
       .then(() => {
         toastr.info('Stock removed');
@@ -75,7 +73,6 @@ class StockListContainer extends Component {
   }
 
   render() {
-    console.log('re-rendering coz state changed');
     return (
       <div className="sidebar-container">
         <SearchBox
@@ -108,7 +105,6 @@ function getRequiredStockProps(stocks) {
 
 function mapStateToProps(state) {
   let stockData = getRequiredStockProps(state.stocks);
-  console.log('updating list, new list is', stockData);
   return {
     stocks: stockData
   };

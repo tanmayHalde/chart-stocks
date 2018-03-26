@@ -29,12 +29,11 @@ export function addStock(stockCode, socket = null) {
   stockCode = stockCode.toUpperCase();
 
   return dispatch => {
-    let url = `https://www.quandl.com/api/v3/datasets/WIKI/${stockCode}.json?
-      api_key=${process.env.API_KEY}`;
+    let url = `https://www.quandl.com/api/v3/datasets/WIKI/${stockCode}.json?` +
+      `order=asc&api_key=${process.env.API_KEY}`;
 
     return axios.get(url)
       .then(res => {
-        console.log('Stock data found for : ', res.data);
         if (socket) {
           socket.emit('addStock', stockCode);
         }

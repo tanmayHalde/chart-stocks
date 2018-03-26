@@ -8,7 +8,7 @@ import Chart from './chart/Chart';
 function App() {
   return ( 
     <div className="chart-wrapper">
-       {/* <Chart /> */}
+       <Chart />
        <StockListContainer />
     </div>  
   );

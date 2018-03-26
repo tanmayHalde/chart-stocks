@@ -5,7 +5,6 @@ import { removeStock } from '../../../actions/stockActions';
 import { ListGroupItem } from 'react-bootstrap';
 
 const StockListItem = ({code, name, removeItem}) => {
-  console.log('rendering list item : ', code);
   return (
     <ListGroupItem>
       <div>

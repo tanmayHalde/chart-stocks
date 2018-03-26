@@ -9,10 +9,10 @@ const StockList = ({items, removeItem}) => {
   let listItems = items.map((stock, index) => {
     return (
       <StockListItem 
-        key = {stock.id + index}
-        code = {stock.code}
-        name = {stock.name}
-        removeItem = {removeItem}
+        key={stock.code}
+        code={stock.code}
+        name={stock.name}
+        removeItem={removeItem}
       />
     );
   });
