@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import toastr from 'toastr';
 import { 
   Form, 
   FormGroup, 
@@ -14,44 +15,47 @@ class SearchBox extends Component {
     this.state = {
       value: ''
     };
-    this.addStock = this.addStock.bind(this);
+    this.addNewStock = this.addNewStock.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  addStock() {
-    this.props.addStock(this.state.value);
-    this.setState({
-      value: ''
+  addNewStock(e) {
+    e.preventDefault();
+    if (!this.inputExists()) {
+      toastr.warning('Enter valid code !')
+    } else {
+      this.props.addStock(this.state.value);
+      this.setState({
+        value: ''
+      });
+    }
+  }
+
+  handleInputChange(e) {
+    return this.setState({
+      value: e.target.value
     });
   }
 
-  handleInputChange(event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      this.addStock();
-    } else {
-      let newValue = this.state.value + event.key;
-      return this.setState({
-        value: newValue
-      });
-    }
- 
+  inputExists() {
+    return this.state.value.length > 0;
   }
 
   render() {
     return (
-      <form>
+      <form onSubmit={this.addNewStock}>
         <FormGroup>
           <FormControl 
             type="text" 
             value={this.state.value}
             placeholder="Enter Stock Code"
-            onKeyPress={this.handleInputChange}
+            onChange={this.handleInputChange}
           />
           <Button 
             className="search-icon"
-            onClick={this.addStock}
-            type="button">
+            onClick={this.addNewStock}
+            type="button"
+            disabled={!this.inputExists()}>
             ADD 
           </Button>
         </FormGroup>
