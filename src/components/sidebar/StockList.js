@@ -2,20 +2,26 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import StockListItem from './StockListItem/StockListItem';
 
-import { ListGroup, ListGroupItem } from 'react-bootstrap';
+import { ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 import './StockList.scss';
 
-const StockList = ({items, removeItem}) => {
+const StockList = ({items, removeStock}) => {
   let listItems = items.map((stock, index) => {
     return (
-      <StockListItem 
-        key={stock.code}
-        code={stock.code}
-        name={stock.name}
-        removeItem={removeItem}
-      />
+      <div key={stock.code}>
+        <StockListItem
+          code={stock.code}
+          name={stock.name}
+        />
+        <Button
+          id={stock.code}
+          onClick={removeStock}> 
+          X
+        </Button>
+      </div>
     );
   });
+
   return (
     <ListGroup>
       {listItems}
@@ -25,7 +31,7 @@ const StockList = ({items, removeItem}) => {
 
 StockList.propTypes = {
   items: PropTypes.array.isRequired,
-  removeItem: PropTypes.func.isRequired
+  removeStock: PropTypes.func.isRequired
 };
 
 export default StockList;

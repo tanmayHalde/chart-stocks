@@ -12,7 +12,7 @@ export default function stockReducer(state = initialState.stocks, action) {
     debugger;
       return [
         ...state.filter(stock => {
-          return stock.dataset.dataset_code === action.stock.dataset.dataset_code;
+          return stock.dataset.dataset_code !== action.stockCode;
         })
       ];
     default:

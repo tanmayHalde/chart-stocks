@@ -46,7 +46,7 @@ export function addStock(stockCode, socket = null) {
   };
 } 
 
-export function removeStock(stockCode, socket) {
+export function removeStock(stockCode, socket = null) {
   stockCode = stockCode.toUpperCase();
 
   return dispatch => {

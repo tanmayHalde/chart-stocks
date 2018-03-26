@@ -22,6 +22,7 @@ class StockListContainer extends Component {
     };
     this.addStock = this.addStock.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.removeStock = this.removeStock.bind(this);
   }
 
   componentDidMount() {
@@ -43,7 +44,8 @@ class StockListContainer extends Component {
   }
 
   addStock(code) {
-    this.props.actions.addStock(code, this.socket)
+    console.log('Adding stock, socket is: ', this.state.socket);
+    this.props.actions.addStock(code, this.state.socket)
       .then(() => {
         toastr.success('New stock added');
       })
@@ -59,9 +61,8 @@ class StockListContainer extends Component {
   }
 
   removeStock(event) {
-    const code = event.target.code;
-    debugger;
-    this.props.actions.removeStock(code)
+    const code = event.target.id;
+    this.props.actions.removeStock(code, this.state.socket)
       .then(() => {
         toastr.info('Stock removed');
       })
@@ -76,9 +77,9 @@ class StockListContainer extends Component {
         <SearchBox
           addStock = {this.addStock}
         />
-        <StockList 
+        <StockList
           items = {this.state.stocks}
-          removeItem = {this.removeStock}
+          removeStock = {this.removeStock}
         />
       </div>
     );

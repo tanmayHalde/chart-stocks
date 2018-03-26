@@ -4,15 +4,10 @@ import { removeStock } from '../../../actions/stockActions';
 
 import { ListGroupItem } from 'react-bootstrap';
 
-const StockListItem = ({code, name, removeItem}) => {
+const StockListItem = ({code, name}) => {
   return (
     <ListGroupItem>
-      <div>
-        {code}
-        <button onClick = {removeItem}> 
-          X
-        </button>
-      </div>
+      {code}
     </ListGroupItem>
   );
 };
@@ -20,7 +15,6 @@ const StockListItem = ({code, name, removeItem}) => {
 StockListItem.propTypes = {
   code: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  removeItem: PropTypes.func.isRequired,
 };
 
 export default StockListItem;

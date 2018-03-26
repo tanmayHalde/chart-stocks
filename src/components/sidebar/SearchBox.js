@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import { 
   Form, 
   FormGroup, 
@@ -14,7 +13,7 @@ class SearchBox extends Component {
     super(props);
     this.state = {
       value: ''
-    }
+    };
     this.addStock = this.addStock.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -23,7 +22,7 @@ class SearchBox extends Component {
     this.props.addStock(this.state.value);
     this.setState({
       value: ''
-    })
+    });
   }
 
   handleInputChange(event) {
@@ -54,7 +53,7 @@ class SearchBox extends Component {
 }
 
 SearchBox.propTypes = {
-  addStock: PropTypes.func.isRequired,
+  addStock: PropTypes.func.isRequired
 };
 
 export default SearchBox;
