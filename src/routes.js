@@ -6,11 +6,9 @@ import AboutPage from './components/about/AboutPage';
 
 
 const Routes = () => (
-  <main>
-    <Switch>
-      <Route path="/" component={App} />
-    </Switch>
-  </main>
+  <Switch>
+    <Route path="/" component={App} />
+  </Switch>
 );
 
 export default Routes;

@@ -8,7 +8,11 @@ import configureStore from './store/configureStore';
 import { loadStocks } from './actions/stockActions';
 import App from './components/App';
 
-import './styles.scss';
+
+import '../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap-sprockets.scss';
+import '../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
+import '../node_modules/toastr/toastr.scss';
+import './sass/main.scss';
 
 const store = configureStore();
 store.dispatch(loadStocks());

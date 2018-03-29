@@ -9,7 +9,6 @@ export default function stockReducer(state = initialState.stocks, action) {
         Object.assign({}, action.stock)
       ];
     case types.REMOVE_STOCK_SUCCESS:
-    debugger;
       return [
         ...state.filter(stock => {
           return stock.dataset.dataset_code !== action.stockCode;

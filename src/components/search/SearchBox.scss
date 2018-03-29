@@ -1,0 +1,23 @@
+.form-container {
+  margin: 10px;
+  min-width: 100px;
+  max-width: 250px;
+
+  > .search-button {
+    border: none;
+  }
+}
+
+input:required {
+  .form-group & {
+    border: 1px solid red;
+  }
+}
+
+.list-group {
+  .item-wrapper {
+    .list-group-item {
+      display: inline;
+    }
+  }
+}

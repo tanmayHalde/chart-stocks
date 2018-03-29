@@ -8,13 +8,15 @@ import './StockList.scss';
 const StockList = ({items, removeStock}) => {
   let listItems = items.map((stock, index) => {
     return (
-      <div key={stock.code}>
+      <div
+        key={stock.dataset.dataset_code}
+        className="item-wrapper"
+      >
         <StockListItem
-          code={stock.code}
-          name={stock.name}
+          stock={stock}
         />
         <Button
-          id={stock.code}
+          id={stock.dataset.dataset_code}
           onClick={removeStock}> 
           X
         </Button>

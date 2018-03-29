@@ -1,5 +1,7 @@
 .chart-wrapper {
   display: flex;
-  align-items: stretch;
+  max-width: 100%;
+  flex-flow: row nowrap;
+  align-items: center;
   justify-content: space-around;
 }
