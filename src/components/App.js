@@ -8,7 +8,7 @@ import toastr from 'toastr';
 //TODO: component naming fix 
 import Chart from './chart/Chart';
 import SearchBox from './search/SearchBox';
-import StockListContainer from './sidebar/StockListContainer';
+import ListContainer from './sidebar/ListContainer';
 import * as actions from '../actions/stockActions';
 import { isStockListEmpty } from '../utils/stockDataHandler';
 import { bindActionCreators } from 'redux';
@@ -40,7 +40,7 @@ class App extends Component {
       <div className="chart-wrapper">
          <Chart />
          {!isStockListEmpty(this.props.state) && 
-          <StockListContainer socket={this.state.socket} />}
+          <ListContainer socket={this.state.socket} />}
          <SearchBox socket={this.state.socket}/>
       </div>
     );

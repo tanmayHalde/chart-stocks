@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Highstock from 'react-highcharts/ReactHighstock.src';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import * as stockDataHandler from '../../utils/stockDataHandler';
+import { getRequiredStockProps } from '../../utils/stockDataHandler';
 
 import chartConfig from './config';
 import './Chart.scss';
@@ -16,7 +16,7 @@ class Chart extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    stockDataHandler.getRequiredStockProps(nextProps.stocks)
+    getRequiredStockProps(nextProps.stocks)
       .then(formattedStockData => {
         let newConfig = Object.assign({}, this.state.config);
         newConfig.series = formattedStockData;

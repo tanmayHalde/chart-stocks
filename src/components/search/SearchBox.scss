@@ -1,23 +1,28 @@
-.form-container {
+.search-container {
   margin: 10px;
-  min-width: 100px;
-  max-width: 250px;
-
-  > .search-button {
-    border: none;
+  width: 240px;
+  max-width: 240px;
+  align-content: center;
+  display: block;
+  .form-container {
+   
+    > .search-button {
+      display: inline-block;
+      border: none;
+    }
   }
-}
-
-input:required {
-  .form-group & {
-    border: 1px solid red;
+  
+  input:required {
+    .form-group & {
+      border: 1px solid red;
+    }
   }
-}
-
-.list-group {
-  .item-wrapper {
-    .list-group-item {
-      display: inline;
+  
+  .list-group {
+    .item-wrapper {
+      .list-group-item {
+        // display: inline;
+      }
     }
   }
 }

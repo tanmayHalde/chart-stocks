@@ -8,12 +8,12 @@ import './StockListItem.scss';
 const StockListItem = ({stock}) => {
   const stockName = actions.formattedStockName(stock.dataset.name);
   const stockCode = stock.dataset.datset_code;
-  const currentValue = actions.currentClosingValue(stock.dataset.data);
+  const currentValue = actions.currentClosingPrice(stock.dataset.data);
   const priceChange = actions.currentPriceChange(stock.dataset.data);
   const percentChange = actions.dailyPercentChange(stock.dataset.data);
   const lastUpdateDate = actions.lastUpdateDate(stock.dataset.newest_available_date);
   const lastUpdateTime = actions.lastUpdateTime(stock.dataset.refreshed_at);
-  const previousClose = actions.previousClosingValue(stock.dataset.data);
+  const previousClose = actions.previousClosingPrice(stock.dataset.data);
   
   return (
     <ListGroupItem>

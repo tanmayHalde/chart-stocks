@@ -29,7 +29,7 @@ class SearchBox extends Component {
   addStock(stockCode) {
     this.props.addStock(stockCode, this.props.socket)
       .then(() => {
-        toastr.success('New stock added');
+        toastr.success('Stock added');
         this.setState({
           value: ''
         });
@@ -64,29 +64,31 @@ class SearchBox extends Component {
 
   render() {
     return (
-      <Form 
-        inline
-        onSubmit={this.verifyInputAndAddStock}
-        className="form-container"
-      >
-        <FormGroup>
-          <FormControl 
-            type="text" 
-            value={this.state.value}
-            placeholder="Enter Stock Code"
-            onChange={this.handleInputChange}
-          />
-        </FormGroup>
-        <Button 
-          type="button"
-          className="search-button"
-          onClick={this.verifyInputAndAddStock}
-          disabled={this.isInputBlank()}
-          bsStyle="primary"
+      <div className="searchbox-container">
+        <Form 
+          inline
+          onSubmit={this.verifyInputAndAddStock}
+          className="form-container"
         >
-          <Glyphicon glyph="plus" />
-        </Button>
-      </Form>
+          <FormGroup>
+            <FormControl 
+              type="text" 
+              value={this.state.value}
+              placeholder="Enter Stock Code"
+              onChange={this.handleInputChange}
+            />
+          </FormGroup>
+          <Button 
+            type="button"
+            className="search-button"
+            onClick={this.verifyInputAndAddStock}
+            disabled={this.isInputBlank()}
+            bsStyle="primary"
+          >
+            <Glyphicon glyph="plus" />
+          </Button>
+        </Form>
+      </div>
     );
   }
 }

@@ -2,6 +2,56 @@ import _ from 'lodash';
 import moment from 'moment';
 import moment_timezone from 'moment-timezone';
 
+/**
+ * Last closing value for the stock
+ * @param stockData
+ * @return adjusted last closing price
+ */
+export function currentClosingPrice(stockData) {
+  // index based on Quandl api
+  const ADJUSTED_CLOSE_INDEX = 11;
+
+  // NOTE: reponse received from Quandl is sorted in ascending order
+  // i.e. from the earliest available date
+  return stockData[stockData.length-1][ADJUSTED_CLOSE_INDEX];
+}
+
+/**
+ * Since quandl does not provides real time value, price variation
+ * is calculated from the closing values of last 2 days
+ * @param stockData
+ * @return price change rounded to 2 decimals
+ */
+export function currentPriceChange(stockData) {
+  let lastCloseValue = currentClosingPrice(stockData);
+  let secondLastCloseValue = previousClosingPrice(stockData);
+  
+  return _.floor(lastCloseValue - secondLastCloseValue, 2);
+}
+
+/**
+ * Daily price change for the stock
+ * @param stockData
+ * @return string of daily percent change
+ */
+export function dailyPercentChange(stockData) {
+  const priceVariation = currentPriceChange(stockData);
+  const secondLastCloseValue = previousClosingPrice(stockData);
+
+  let percentChange = _.divide(priceVariation, secondLastCloseValue) * 100;
+  percentChange = _.floor(percentChange, 2);
+
+  return percentChange;
+}
+
+/**
+ * Removes additional text in stock name added by Quandl
+ * @param name stock name
+ */
+export function formattedStockName(stockName) {
+  return stockName.slice(0, stockName.indexOf('(') - 1);
+}
+
 export function getRequiredStockProps(stocks) {
   if (!stocks) {
     return null;
@@ -17,12 +67,11 @@ export function getRequiredStockProps(stocks) {
   });
 }
 
-/**
- * Removes additional text in stock name added by Quandl
- * @param name stock name
- */
-export function formattedStockName(stockName) {
-  return stockName.slice(0, stockName.indexOf('(') - 1);
+
+export function getStockCodesFromProps(stocks) {
+  return stocks.map(stock => {
+    return stock.dataset.dataset_code;
+  });
 }
 
 /**
@@ -59,57 +108,21 @@ export function lastUpdateTime(date) {
   return formattedDate.tz('America/New_York').format('h:mm a z');
 }
 
-/**
- * Since quandl does not provides real time value, price variation
- * is calculated from the closing values of last 2 days
- * @param stockData
- * @return price change rounded to 2 decimals
- */
-export function currentPriceChange(stockData) {
-  let lastCloseValue = currentClosingValue(stockData);
-  let secondLastCloseValue = previousClosingValue(stockData);
-  
-  return _.floor(lastCloseValue - secondLastCloseValue, 2);
-}
-
-/**
- * Last closing value for the stock
- * @param stockData
- * @return adjusted last closing price
- */
-export function currentClosingValue(stockData) {
-  // index based on Quandl api
-  const ADJUSTED_CLOSE_INDEX = 11;
-
-  // NOTE: reponse received from Quandl is sorted in ascending order
-  // i.e. from the earliest available date
-  return stockData[stockData.length-1][ADJUSTED_CLOSE_INDEX];
-}
-
-export function previousClosingValue(stockData) {
+export function previousClosingPrice(stockData) {
   // index based on Quandl api
   const ADJUSTED_CLOSE_INDEX = 11;
   return stockData[stockData.length-2][ADJUSTED_CLOSE_INDEX];
 }
 
 /**
- * Daily price change for the stock
- * @return string of daily percent change
+ * Gives adjusted closing price from Quandl api reponse data.
+ * @param stockData object containing daily stock data
+ * @return closing price
  */
-export function dailyPercentChange(stockData) {
-  const priceVariation = currentPriceChange(stockData);
-  const secondLastCloseValue = previousClosingValue(stockData);
-
-  let percentChange = _.divide(priceVariation, secondLastCloseValue) * 100;
-  percentChange = _.floor(percentChange, 2);
-
-  return percentChange;
-}
-
-export function getStockCodesFromProps(stocks) {
-  return stocks.map(stock => {
-    return stock.dataset.dataset_code;
-  });
+function closingPrice(stock) {
+  // NOTE: Stock closing index is specific to quandl's api response
+  const STOCK_CLOSING_PRICE_INDEX = 11;
+  return stock[STOCK_CLOSING_PRICE_INDEX];
 }
 
 /**
@@ -119,10 +132,10 @@ export function getStockCodesFromProps(stocks) {
  */
 function convertStockDataToHighstockFormat(stockData) {
   return stockData.map(stock => {
-    const date = getDateFromStock(stock);
-    const closingPrice = getClosingPriceFromStock(stock);
+    const date = stockDate(stock);
+    const closePrice = closingPrice(stock);
 
-    return [date, closingPrice];
+    return [date, closePrice];
   });
 }
 
@@ -139,22 +152,11 @@ function correctedDate(date) {
 }
 
 /**
- * Gives closing price from Quandl api reponse data.
- * @param stockData object containing daily stock data
- * @return closing price
- */
-function getClosingPriceFromStock(stockData) {
-  // NOTE: Stock closing index is specific to quandl's api response
-  const STOCK_CLOSING_PRICE_INDEX = 4;
-  return stockData[STOCK_CLOSING_PRICE_INDEX];
-}
-
-/**
  * Gives Date in Unix time from Quandl api reponse data.
  * @param stockData array containing daily stock data
  * @return Unix Date
  */
-function getDateFromStock(stockData) {
+function stockDate(stockData) {
   // NOTE: Date index is specific to quandl's api response
   const DATE_INDEX = 0;
   return Date.parse(stockData[DATE_INDEX]);

@@ -6,7 +6,7 @@ import toastr from 'toastr';
 import { removeStock } from '../../actions/stockActions';
 import StockList from './StockList';
 
-import './StockListContainer.scss';
+import './ListContainer.scss';
 
 class StockListContainer extends Component {
   constructor(props) {
@@ -25,13 +25,8 @@ class StockListContainer extends Component {
 
   removeStock(event) {
     const code = event.target.id;
-    this.props.removeStock(code, this.props.socket)
-      .then(() => {
-        toastr.info('Stock removed');
-      })
-      .catch(err => {
-        toastr.error(err);
-      });
+    this.props.removeStock(code, this.props.socket);
+    toastr.warning('Stock removed');
   }
 
   render() {
