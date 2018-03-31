@@ -5,11 +5,9 @@ import { bindActionCreators } from 'redux';
 import toastr from 'toastr';
 import { removeStock } from '../../actions/stockActions';
 import { isStockListEmpty } from '../../utils/stockDataHandler';
-import './StockList.scss';
-
 import StockListItem from './listItem/StockListItem';
 import { ListGroup } from 'react-bootstrap';
-
+import './StockList.scss';
 
 class StockList extends Component {
   constructor(props) {

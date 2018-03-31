@@ -23,10 +23,10 @@ export function currentClosingPrice(stockData) {
  * @return price change rounded to 2 decimals
  */
 export function currentPriceChange(stockData) {
-  let lastCloseValue = currentClosingPrice(stockData);
-  let secondLastCloseValue = previousClosingPrice(stockData);
+  let currentClosePrice = currentClosingPrice(stockData);
+  let previousClosePrice = previousClosingPrice(stockData);
   
-  return _.floor(lastCloseValue - secondLastCloseValue, 2);
+  return _.floor(currentClosePrice - previousClosePrice, 2);
 }
 
 /**
@@ -36,9 +36,9 @@ export function currentPriceChange(stockData) {
  */
 export function dailyPercentChange(stockData) {
   const priceVariation = currentPriceChange(stockData);
-  const secondLastCloseValue = previousClosingPrice(stockData);
+  const previousClosePrice = previousClosingPrice(stockData);
 
-  let percentChange = _.divide(priceVariation, secondLastCloseValue) * 100;
+  let percentChange = _.divide(priceVariation, previousClosePrice) * 100;
   percentChange = _.floor(percentChange, 2);
 
   return percentChange;
@@ -56,6 +56,7 @@ export function getRequiredStockProps(stocks) {
   if (!stocks) {
     return null;
   }
+
   return new Promise((resolve, reject) => {
     resolve(stocks.map(stock => {
       const stockData = convertStockDataToHighstockFormat(stock.dataset.data);
@@ -67,7 +68,6 @@ export function getRequiredStockProps(stocks) {
   });
 }
 
-
 export function getStockCodesFromProps(stocks) {
   return stocks.map(stock => {
     return stock.dataset.dataset_code;
@@ -76,7 +76,8 @@ export function getStockCodesFromProps(stocks) {
 
 /**
  * Determine if stock data already rendered.
- * @param stocks List of stocks already rendered
+ * @param stockCodes stocks codes rendered
+ * @param newStockCode
  * @return 'true' if stock already rendered on chart, 'false' otherwise  
  */
 export function isStockPresent(stockCodes, newStockCode) {
@@ -152,7 +153,7 @@ function correctedDate(date) {
 }
 
 /**
- * Gives Date in Unix time from Quandl api reponse data.
+ * Gives date in Unix time from Quandl api reponse data.
  * @param stockData array containing daily stock data
  * @return Unix Date
  */

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Highstock from 'react-highcharts/ReactHighstock.src';
 import { getRequiredStockProps } from '../../utils/stockDataHandler';
-
 import chartConfig from './config';
 import './Chart.scss';
 
@@ -20,7 +19,6 @@ class Chart extends Component {
       .then(formattedStockData => {
         let newConfig = Object.assign({}, this.state.config);
         newConfig.series = formattedStockData;
-
         this.setState({
           config: newConfig
         });

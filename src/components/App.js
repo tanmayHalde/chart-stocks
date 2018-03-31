@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import io from 'socket.io-client';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
-
+import { bindActionCreators } from 'redux';
 import Header from './header/Header';
 import Footer from './footer/Footer';
 import Chart from './chart/Chart';
 import SearchBox from './search/SearchBox';
-import StockList from './list/StockList';
+import StockList from './stocklist/StockList';
 import * as actions from '../actions/stockActions';
-import { bindActionCreators } from 'redux';
 
 import '../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 import './App.scss';
