@@ -43,6 +43,10 @@ class SearchBox extends Component {
     return this.state.value.length < 1;
   }
 
+  isInvalidInput(stockCode) {
+    return RegExp(/[~`!#$%^&*+=\-[\]\\';,/{}|\\".:<>?]/g).test(stockCode);
+  }
+
   handleInputChange(e) {
     return this.setState({
       value: e.target.value
@@ -53,8 +57,8 @@ class SearchBox extends Component {
     e.preventDefault();
     const stockCode = this.state.value;
 
-    if (this.isInputBlank()) {
-      toastr.warning('Enter valid code !');
+    if (this.isInputBlank() || this.isInvalidInput(stockCode)) {
+      toastr.warning('Invalid stock code!');
     } else if (isStockPresent(this.props.stocks, stockCode)) {
       toastr.warning('Stock already exists !');
     } else {
