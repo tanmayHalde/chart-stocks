@@ -16,7 +16,6 @@ const Footer = () => {
         <div className="signature">
           @tanmayHalde
         </div>
-
       </footer>
     </div>
   );

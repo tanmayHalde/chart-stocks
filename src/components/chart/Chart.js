@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Highstock from 'react-highcharts/ReactHighstock.src';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Highstock from 'react-highcharts/ReactHighstock.src';
 import { getRequiredStockProps } from '../../utils/stockDataHandler';
 
 import chartConfig from './config';
