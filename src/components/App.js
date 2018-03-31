@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import io from 'socket.io-client';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import './App.scss';
-import toastr from 'toastr';
 
-//TODO: component naming fix 
+import Header from './header/Header';
+import Footer from './footer/Footer';
 import Chart from './chart/Chart';
 import SearchBox from './search/SearchBox';
-import ListContainer from './sidebar/ListContainer';
+import StockList from './list/StockList';
 import * as actions from '../actions/stockActions';
-import { isStockListEmpty } from '../utils/stockDataHandler';
 import { bindActionCreators } from 'redux';
+
+import '../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
+import './App.scss';
+import toastr from 'toastr';
 
 class App extends Component {
   constructor(props) {
@@ -37,11 +39,24 @@ class App extends Component {
 
   render() {
     return ( 
-      <div className="chart-wrapper">
-         <Chart />
-         {!isStockListEmpty(this.props.state) && 
-          <ListContainer socket={this.state.socket} />}
-         <SearchBox socket={this.state.socket}/>
+      <div className="app-container container-fluid">
+        <section>
+          <div className="row">
+            <div className="col-md-8">
+              <Header />
+              <Chart />
+              <SearchBox socket={this.state.socket}/>
+            </div>
+
+            <aside>
+              <div className="col-md-4">
+                <StockList socket={this.state.socket} />
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <Footer />
       </div>
     );
   }
@@ -49,12 +64,12 @@ class App extends Component {
 
 App.propTypes = {
   actions: PropTypes.object.isRequired,
-  state: PropTypes.array.isRequired
+  stocks: PropTypes.array.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    state: state.stocks
+    stocks: state.stocks
   }
 }
 

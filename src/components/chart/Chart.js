@@ -29,7 +29,7 @@ class Chart extends Component {
 
   render() {
     return (
-      <div className="chart-container">
+      <div className="chart-container row">
         <Highstock config={this.state.config} />
       </div>
     );

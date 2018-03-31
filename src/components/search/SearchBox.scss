@@ -1,28 +1,12 @@
-.search-container {
-  margin: 10px;
-  width: 240px;
-  max-width: 240px;
-  align-content: center;
-  display: block;
-  .form-container {
-   
-    > .search-button {
-      display: inline-block;
-      border: none;
-    }
-  }
-  
-  input:required {
-    .form-group & {
-      border: 1px solid red;
-    }
-  }
-  
-  .list-group {
-    .item-wrapper {
-      .list-group-item {
-        // display: inline;
-      }
+.searchbox-container {
+  margin: 3em;
+
+  form {
+    margin-bottom: 1em;
+    min-width: 350px;
+
+    button {
+      margin-left: -1em;
     }
   }
 }

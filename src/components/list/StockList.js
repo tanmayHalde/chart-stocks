@@ -4,11 +4,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import toastr from 'toastr';
 import { removeStock } from '../../actions/stockActions';
-import StockList from './StockList';
+import { isStockListEmpty } from '../../utils/stockDataHandler';
+import './StockList.scss';
 
-import './ListContainer.scss';
+import StockListItem from './listItem/StockListItem';
+import { ListGroup } from 'react-bootstrap';
 
-class StockListContainer extends Component {
+
+class StockList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,6 +26,19 @@ class StockListContainer extends Component {
     });
   }
 
+  getListItems() {
+    let stockList = this.state.stocks;
+    return stockList.map((stock, index) => {
+      return (
+        <StockListItem
+          key={stock.dataset.dataset_code}
+          stock={stock}
+          remove={this.removeStock}
+        />
+      );
+    });
+  }
+
   removeStock(event) {
     const code = event.target.id;
     this.props.removeStock(code, this.props.socket);
@@ -30,21 +46,24 @@ class StockListContainer extends Component {
   }
 
   render() {
+    let content = isStockListEmpty(this.state.stocks) ? (
+      <div className="empty-list-status text-muted"> No data </div>
+    ) : (
+      this.getListItems()
+    );
+
     return (
-      <div className="sidebar-container">
-        <StockList
-          items = {this.state.stocks}
-          removeStock = {this.removeStock}
-        />
-      </div>
+      <ListGroup>
+        {content}
+      </ListGroup>
     );
   }
 }
 
-StockListContainer.propTypes = {
-  stocks: PropTypes.array.isRequired,
+StockList.propTypes = {
   removeStock: PropTypes.func.isRequired,
-  socket: PropTypes.object.isRequired
+  socket: PropTypes.object.isRequired,
+  stocks: PropTypes.array.isRequired
 };
 
 function mapStateToProps(state) {
@@ -59,4 +78,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StockListContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(StockList);

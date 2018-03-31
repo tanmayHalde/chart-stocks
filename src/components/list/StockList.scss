@@ -1,0 +1,23 @@
+@import '../../sass/_variables.scss';
+
+.list-group {
+  height: 78vh;
+  overflow: scroll;
+  overflow-x: hidden;
+  padding: 1em 1.5em !important;
+  padding-right: 2em !important;
+ 
+  background: $light-gray;
+  min-width: 350px;
+
+  .empty-list-status {
+    margin-top: 20vh;
+
+    font-size: 2.5em;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-align: center;
+    
+
+  }
+}

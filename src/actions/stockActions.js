@@ -40,7 +40,6 @@ export function addStock(stockCode, socket = null) {
         dispatch(addStockSuccess(res.data));
       })
       .catch(error => {
-        toastr.warning('Stock code not found');
         throw(error);
       });
   };

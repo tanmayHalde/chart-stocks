@@ -5,7 +5,7 @@ import { addStock } from '../../actions/stockActions';
 import { bindActionCreators } from 'redux';
 import { getStockCodesFromProps, isStockPresent } from '../../utils/stockDataHandler';
 
-import { 
+import {
   Form, 
   FormGroup, 
   FormControl, 
@@ -35,7 +35,7 @@ class SearchBox extends Component {
         });
       })
       .catch(err => {
-        toastr.error(err);
+        toastr.warning('Stock code not found');
       });
   }
 
@@ -64,23 +64,20 @@ class SearchBox extends Component {
 
   render() {
     return (
-      <div className="searchbox-container">
-        <Form 
-          inline
-          onSubmit={this.verifyInputAndAddStock}
-          className="form-container"
-        >
-          <FormGroup>
-            <FormControl 
+      <div className="searchbox-container row">
+        <Form onSubmit={this.verifyInputAndAddStock}>
+          <FormGroup className="col-xs-8 col-md-4 col-md-offset-4">
+            <FormControl
               type="text" 
               value={this.state.value}
               placeholder="Enter Stock Code"
               onChange={this.handleInputChange}
             />
           </FormGroup>
+
           <Button 
             type="button"
-            className="search-button"
+            className="search-button col-xs-2 col-md-1"
             onClick={this.verifyInputAndAddStock}
             disabled={this.isInputBlank()}
             bsStyle="primary"
@@ -89,6 +86,7 @@ class SearchBox extends Component {
           </Button>
         </Form>
       </div>
+      
     );
   }
 }
@@ -110,7 +108,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     addStock: bindActionCreators(addStock, dispatch)
-  }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);

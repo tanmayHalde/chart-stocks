@@ -1,0 +1,116 @@
+@import "../../../sass/_variables";
+
+.list-item {
+  box-shadow: 1em 1em 1.2em 0.1em rgba(0,0,0,0.1);
+  margin: 2em auto;
+  min-width: 250px;
+  padding: 0px !important;
+  transition: 0.1s;
+
+  &:hover {
+    box-shadow: 1em 1em 1.5em 0.1em rgba(30, 30, 30, 0.3);
+  }
+
+  .item-tab {
+    border-bottom: 2em solid $white;
+    border-left: 1em solid transparent;
+    border-right: 1em none transparent;
+    display: block;
+    height: 2em;
+    float: right;
+    right: 0px;
+    width: 20%;
+  }
+
+  .remove-button {
+    button {
+      background: none;
+      border: none;
+      float: right;
+      right: 0.5em;
+
+      .glyphicon-remove-sign {
+        background: 0;
+        font-size: 1.5em;
+        float: right;
+
+        &:hover {
+          background: $red;
+        }
+      }
+    }
+  }
+  
+  .item-info {
+    display: flex;
+    align-items: center;
+    background: $white;
+    clear: right;
+    flex-flow: row wrap;
+    margin-right: 0.4em;
+  
+    .stock-name {
+      flex: 1 1 50%;
+      min-width: 144px;
+      padding: 0.5em;
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+    }
+
+    .current-value {
+      flex: 1 1 50%;
+      letter-spacing: 1px;
+      min-width: 150px;
+      padding: 0.2em;
+      text-align: right;
+      font-size: 1.5em;
+
+      h3 {
+        font-size: 2em;
+        font-weight: 600;
+
+        min-width: 96px;
+
+        .currency {
+          font-size: 0.6em;
+          font-weight: 400;
+        }
+      }
+
+      .daily-variation {
+        font-weight: 550;
+
+        &.positive {
+          color: $green;
+        }
+
+        &.negative {
+          color: $red;
+        }
+
+        .amount-change, .percent-change {
+          padding: 0 0.1em;
+        }
+       }
+    }
+
+    .last-update, .last-close {
+      font-size: 1.2em;
+      width: 100%;
+      height: 1.5em;
+    }
+
+    .last-update {
+      align-self: flex-end;
+      margin-right: 0.8em;
+      text-align: right;
+    }
+
+    .last-close {
+      align-self: flex-start;
+      font-weight: 550;
+      padding: 0em 1em 0.5em;
+    }
+  }
+}

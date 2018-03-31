@@ -1,9 +1,8 @@
 .chart-container {
-  margin: 10px;
-  vertical-align: middle;
-  width: 70%;
-  flex: 2 1 auto;
   border: 1px solid rgb(64, 64, 64);
+  display: block;
+  margin: 1em 0em;
+
   // box-shadow: rgba(0, 0, 0, 0.68) 7px 10px 34px 1px, 
   //   rgb(137, 132, 126) -1px -6px 12px 0.1px inset;
   box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, .2);
