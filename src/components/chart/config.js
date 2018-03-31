@@ -2,9 +2,6 @@ let chartConfig = {
   rangeSelector: {
       selected: 1
   },
-  title: {
-      text: 'Stock Chart'
-  },
   series: []
 };
 
