@@ -1,6 +1,6 @@
 import Stock from './mongoose/Stock';
 
-function handleSocketEvents(io) {
+export default function handleSocketEvents(io) {
 	io.on('connection', function(socket) {
 		console.log('New client connected with id:' + socket.id);
 		
@@ -34,5 +34,3 @@ function handleSocketEvents(io) {
 		});
 	});
 }
-
-export default handleSocketEvents;

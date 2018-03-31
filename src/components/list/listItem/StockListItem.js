@@ -15,8 +15,7 @@ const StockListItem = ({stock, remove}) => {
   const lastUpdateTime = actions.lastUpdateTime(stock.dataset.refreshed_at);
   const previousClose = actions.previousClosingPrice(stock.dataset.data);
   const variation = priceChange > 0 ? 'positive' : 'negative';
- 
-  debugger;
+
   return (
     <div className="list-item">
       <div className="item-tab">

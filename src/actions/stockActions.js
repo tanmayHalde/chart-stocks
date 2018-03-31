@@ -1,5 +1,5 @@
-import * as types from './actionTypes';
 import axios from 'axios';
+import * as types from './actionTypes';
 import toastr from 'toastr';
 
 export function addStockSuccess(stock) {
@@ -19,8 +19,7 @@ export function loadStocks() {
         });
       })
       .catch(error => {
-        toastr['warning'](' ', 'Error loading data from server!');
-        throw(error); 
+        toastr.warning('Error loading data from server!');
       });
   };
 }

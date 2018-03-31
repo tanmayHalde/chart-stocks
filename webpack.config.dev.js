@@ -24,7 +24,7 @@ export default {
     historyApiFallback: true  // loads index page on any 404 
   },
   plugins: [
-    new webpack.DefinePlugin(GLOBALS),
+    new webpack.DefinePlugin(GLOBALS),          // allows to create global constants
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
   ],

@@ -3,7 +3,7 @@ import path from 'path';
 
 export default function handleHttpRequests(app) {
   app.get('/', function(req, res) {
-    res.sendFile(path.join( __dirname, '../src/index.html'));
+    res.sendFile(path.join( __dirname, '../../src/index.html'));
   });
   
   app.get('/stocks', function(req, res) {

@@ -4,9 +4,9 @@ import webpack from 'webpack';
 import webpackConfig from '../webpack.config.prod';
 import colors from 'colors';
 
-process.env.NODE_ENV = 'production'; // this assures the Babel dev config (for hot reloading) doesn't apply.
+process.env.NODE_ENV = 'production';
 
-console.log('Generating minified bundle for production via Webpack. This will take a moment...'.blue);
+console.log('Generating minified bundle for production via Webpack...'.underline.cyan);
 
 webpack(webpackConfig).run((err, stats) => {
   if (err) {
@@ -15,9 +15,8 @@ webpack(webpackConfig).run((err, stats) => {
   }
 
   const jsonStats = stats.toJson();
-
   if (jsonStats.hasErrors) {
-    return jsonStats.errors.map(error => console.log(error.red));
+    return jsonStats.errors.map(error => console.log(error.underline.red));
   }
 
   if (jsonStats.hasWarnings) {
@@ -28,7 +27,7 @@ webpack(webpackConfig).run((err, stats) => {
   console.log(`Webpack stats: ${stats}`);
 
   /* build succeeded */
-  console.log('App has been compiled in production mode and written to /dist'.green);
+  console.log('App compiled in production mode.'.underline.green);
 
   return 0;
 });

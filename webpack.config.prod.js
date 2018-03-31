@@ -8,13 +8,11 @@ const GLOBALS = {
 };
 
 export default {
-  debug: true,
   devtool: 'source-map',
-  noInfo: false,
   entry: './src/index',
   target: 'web',
   output: {
-    path: __dirname + '/dist', // Note: Physical files are only output by the production build task `npm run build`.
+    path: __dirname + '/dist',
     publicPath: '/',
     filename: 'bundle.js'
   },
@@ -22,20 +20,27 @@ export default {
     contentBase: './dist'
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),  // optimizes the order in which our files are bundled 
     new webpack.DefinePlugin(GLOBALS),    // allows to create global constants
     new ExtractTextPlugin('styles.css'),  // extracts the css file into a seperate file
-    new webpack.optimize.DedupePlugin(),  // eliminates duplicate packages in our filnal bundle
-    new webpack.optimize.UglifyJsPlugin() // minification
+    new webpack.optimize.UglifyJsPlugin() // minification 
   ],
   module: {
-    loaders: [
-      {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
-      {test: /(\.css)$/, loader: ExtractTextPlugin.extract("css?sourceMap")},
-      {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file"},
-      {test: /\.(woff|woff2)$/, loader: "url?prefix=font/&limit=5000"},
-      {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream"},
-      {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml"}
-    ]
+    rules: [  
+      {test: /\.js$/, include: path.join(__dirname, 'src'), loader: 'babel-loader'},
+      {test: /(\.scss)$/, 
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {loader: ("css-loader"), options: {sourceMap: true}},
+            {loader: ("sass-loader"), options: {sourceMap: true}}
+          ]
+        })
+      },
+      {test: /\.(woff|woff2)$/, loader: "url-loader?prefix=font/&limit=5000"},
+      {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url-loader?limit=10000&mimetype=application/octet-stream"},
+      {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url-loader?limit=10000&mimetype=image/svg+xml"},
+      {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader"},
+      {test: /\.(gif|svg|jpg|png)$/, loader: "url-loader?limit=100000"}
+    ],
   }
 };
