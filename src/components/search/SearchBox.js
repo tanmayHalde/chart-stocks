@@ -70,7 +70,7 @@ class SearchBox extends Component {
     return (
       <div className="searchbox-container row">
         <Form onSubmit={this.verifyInputAndAddStock}>
-          <FormGroup className="col-xs-8 col-md-4 col-md-offset-4">
+          <FormGroup className="col-xs-8 col-xs-offset-1 col-md-4 col-md-offset-4">
             <FormControl
               type="text" 
               value={this.state.value}
