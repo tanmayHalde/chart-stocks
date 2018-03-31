@@ -18,20 +18,17 @@ class App extends Component {
   constructor(props) {
     super(props);
     // let socket = io('https://th-stockchart.herokuapp.com/');
-    let socket = io('http://localhost:3000');
-    this.state = {
-      socket: socket
-    };
+    this.socket = io('http://localhost:3000');
   }
 
   componentDidMount() {
-    this.state.socket.on('connectionSuccess', () => {
+    this.socket.on('connectionSuccess', () => {
 			return toastr.warning('Socket connnected ');
 		});
-		this.state.socket.on('stockAdded', stock => {
+		this.socket.on('stockAdded', stock => {
 			this.props.actions.addStock(stock);
 		});
-		this.state.socket.on('stockRemoved', (stock) => {
+		this.socket.on('stockRemoved', (stock) => {
 			this.props.actions.removeStock(stock);
 		});
   }
@@ -44,11 +41,11 @@ class App extends Component {
             <div className="col-md-8">
               <Header />
               <Chart />
-              <SearchBox socket={this.state.socket}/>
+              <SearchBox socket={this.socket}/>
             </div>
             <aside>
               <div className="col-md-4">
-                <StockList socket={this.state.socket} />
+                <StockList socket={this.socket} />
               </div>
             </aside>  
           </section>
@@ -61,14 +58,7 @@ class App extends Component {
 
 App.propTypes = {
   actions: PropTypes.object.isRequired,
-  stocks: PropTypes.array.isRequired
 };
-
-function mapStateToProps(state) {
-  return {
-    stocks: state.stocks
-  };
-}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -76,4 +66,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);
