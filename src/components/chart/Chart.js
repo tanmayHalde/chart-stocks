@@ -24,7 +24,7 @@ class Chart extends Component {
         this.setState({
           config: newConfig
         });
-      })
+      });
   }
 
   render() {

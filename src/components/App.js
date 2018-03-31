@@ -39,23 +39,21 @@ class App extends Component {
 
   render() {
     return ( 
-      <div className="app-container container-fluid">
-        <section>
-          <div className="row">
+      <div className="container-fluid">
+        <div className="row">
+          <section>
             <div className="col-md-8">
               <Header />
               <Chart />
               <SearchBox socket={this.state.socket}/>
             </div>
-
             <aside>
               <div className="col-md-4">
                 <StockList socket={this.state.socket} />
               </div>
-            </aside>
-          </div>
-        </section>
-
+            </aside>  
+          </section>
+        </div> 
         <Footer />
       </div>
     );
@@ -70,13 +68,13 @@ App.propTypes = {
 function mapStateToProps(state) {
   return {
     stocks: state.stocks
-  }
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(actions, dispatch)
-  }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

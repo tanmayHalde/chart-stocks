@@ -1,23 +1,26 @@
 @import '../../sass/_variables.scss';
 
 .list-group {
-  height: 78vh;
-  overflow: scroll;
-  overflow-x: hidden;
-  padding: 1em 1.5em !important;
-  padding-right: 2em !important;
- 
   background: $light-gray;
+  border-radius:2em; 
+  height: 78vh;
+  margin: 1em 0;
   min-width: 350px;
+  padding: 0 1.2em !important;
 
   .empty-list-status {
     margin-top: 20vh;
-
     font-size: 2.5em;
     font-weight: 700;
     letter-spacing: 0.2em;
     text-align: center;
-    
+  }
 
+  // rounded edges fix near scroll bars
+  .list-group-content {
+    border-radius: 2em;
+    height: 78vh;
+    overflow-y: auto;
+    padding-right: 2em !important;
   }
 }

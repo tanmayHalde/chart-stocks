@@ -102,7 +102,7 @@ SearchBox.propTypes = {
 };
 
 function mapStateToProps(state) {
-  let stockCodes = getStockCodesFromProps(state.stocks)
+  let stockCodes = getStockCodesFromProps(state.stocks);
 
   return {
     stocks: stockCodes

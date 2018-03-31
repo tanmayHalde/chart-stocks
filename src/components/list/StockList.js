@@ -54,7 +54,9 @@ class StockList extends Component {
 
     return (
       <ListGroup>
-        {content}
+        <div className="list-group-content">
+          {content}
+        </div>
       </ListGroup>
     );
   }

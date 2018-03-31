@@ -58,7 +58,7 @@ export function getRequiredStockProps(stocks) {
   }
   return new Promise((resolve, reject) => {
     resolve(stocks.map(stock => {
-      const stockData = convertStockDataToHighstockFormat(stock.dataset.data)
+      const stockData = convertStockDataToHighstockFormat(stock.dataset.data);
       return {
         name: stock.dataset.dataset_code,
         data: stockData
