@@ -9,7 +9,6 @@ import mongoose from 'mongoose';
 import Stock from './utils/mongoose/Stock';
 
 /* eslint-disable no-console */
-const port = 3000;
 const app = express();
 
 app.use(compression());
@@ -45,7 +44,7 @@ app.get('/stocks', function(req, res) {
 //--------SOCKET
 let server = http.createServer(app);
 let io = require('socket.io')(server);
-server.listen(port, function(err) {
+server.listen(process.env.PORT || 3000, function(err) {
   if (err) {
     console.log(err);
 	}
