@@ -47,10 +47,12 @@ let io = require('socket.io')(server);
 server.listen(port, function(err) {
   if (err) {
     console.log(err);
-  } else {
-    open(`http://localhost:${port}`);
-  }
+	}
 });
+// 	 else {
+//     open(`http://localhost:${port}`);
+//   }
+// });
 
 io.on('connect', function(socket) {
 	console.log('New client connected, id: ', socket.id);
