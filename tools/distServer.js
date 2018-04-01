@@ -1,6 +1,6 @@
 import http from 'http';
 import path from 'path';
-import open from 'open';
+import colors from 'colors';
 import express from 'express';
 import bodyParser from 'body-parser';
 import compression from 'compression';
@@ -19,13 +19,14 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('dist'));
 
 /*----DB setup----*/
-mongoose.connection.openUri(`mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSCODE}
-	@ds231229.mlab.com:31229/th-freecodecamp`);
-mongoose.connection.on('error', err => {
-	console.log('FAILED to connect to mongoose');
+let db = mongoose.connection.openUri(`mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSCODE}` +
+	`@ds231229.mlab.com:31229/th-freecodecamp`);
+
+db.on('error', err => {
+	console.log('FAILED to connect to mongoose'.underline.bold.red);
 	console.error(err);
 });
-mongoose.connection.on('connected', () => {
+db.on('connected', () => {
 	console.log('connected to mongoose');
 });
 
