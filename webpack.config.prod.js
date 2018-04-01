@@ -4,7 +4,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const GLOBALS = {
   'process.env.NODE_ENV': JSON.stringify('production'),
-  'process.env.API_KEY': JSON.stringify('-ar_PDsmkJwNtrQNLqsn'),
+  // 'process.env.API_KEY': JSON.stringify('-ar_PDsmkJwNtrQNLqsn'),
 };
 
 export default {

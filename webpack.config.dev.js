@@ -3,7 +3,7 @@ import path from 'path';
 
 const GLOBALS = {
   'process.env.NODE_ENV': JSON.stringify('development'),
-  'process.env.API_KEY': JSON.stringify('-ar_PDsmkJwNtrQNLqsn')
+  // 'process.env.API_KEY': JSON.stringify('-ar_PDsmkJwNtrQNLqsn')
 };
 
 export default {
