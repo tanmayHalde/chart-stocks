@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('dist'));
 
 /*----DB setup----*/
-mongoose.connect(`mongodb://$(process.env.MONGO_USER):$(process.env.MONGO_USER)
+mongoose.connection.openUri(`mongodb://$(process.env.MONGO_USER):$(process.env.MONGO_PASSCODE)
 	@ds231229.mlab.com:31229/th-freecodecamp`);
 mongoose.connection.on('error', err => {
 	console.log('FAILED to connect to mongoose');
