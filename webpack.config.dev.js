@@ -1,9 +1,10 @@
 import webpack from 'webpack';
 import path from 'path';
+import dotenv from 'dotenv';
+dotenv.config(); 
 
 const GLOBALS = {
-  'process.env.NODE_ENV': JSON.stringify('development'),
-  // 'process.env.API_KEY': JSON.stringify('-ar_PDsmkJwNtrQNLqsn')
+  'process.env.API_KEY': JSON.stringify(process.env.API_KEY)
 };
 
 export default {

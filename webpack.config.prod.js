@@ -2,10 +2,12 @@ import webpack from 'webpack';
 import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
-import Dotenv from 'dotenv-webpack';
+import dotenv from 'dotenv';
+dotenv.config(); 
 
 const GLOBALS = {
-  'process.env.NODE_ENV': JSON.stringify('production')
+  'process.env.NODE_ENV': JSON.stringify('production'),
+  'process.env.API_KEY': JSON.stringify(process.env.API_KEY)
 };
 
 export default {
@@ -21,7 +23,6 @@ export default {
     contentBase: './dist'
   },
   plugins: [
-    new Dotenv(),
     new webpack.DefinePlugin(GLOBALS),
     new ExtractTextPlugin('styles.css'),
     new UglifyJsPlugin() 
