@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('dist'));
 
 /*----DB setup----*/
-// console.log(`Username=${process.env.DB_USER}:${process.env.DB_PASSCODE}`);
+console.log(`Username=${process.env.DB_USER}:${process.env.DB_PASSCODE}`);
 mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASSCODE}` +
 	`@ds231229.mlab.com:31229/th-freecodecamp`);
 
