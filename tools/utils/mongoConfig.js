@@ -1,15 +1,19 @@
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import colors from 'colors';
+dotenv.config();
 
 export function start() {
-  mongoose.connection.openUri(`mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSCODE}` +
-    `@ds231229.mlab.com:31229/th-freecodecamp`);
+  mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASSCODE}` +
+	`@ds231229.mlab.com:31229/th-freecodecamp`);
 
-  mongoose.connection.on('error', err => {
-    console.log('FAILED to connect to mongoose');
+  let db = mongoose.connection;
+  db.on('error', err => {
+    console.log('Connection to mLab failed'.bold.red);
     console.error(err);
   });
 
-  mongoose.connection.on('connected', () => {
-    console.log('connected to mongoose');
+  db.on('connected', () => {
+    console.log('Connected to mLab'.green);
   });
 }

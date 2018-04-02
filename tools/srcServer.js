@@ -1,5 +1,4 @@
 import http from 'http';
-import path from 'path';
 import open from 'open';
 import express from 'express';
 import bodyParser from 'body-parser';
@@ -12,7 +11,6 @@ import Stock from './utils/mongoose/Stock';
 import * as mongo from './utils/mongoConfig';
 import handleSocketEvents from './utils/socketEventHandler';
 import handleHttpRequests from './utils/httpRequestHandler';
-
 
 /* eslint-disable no-console */
 const port = 3000;

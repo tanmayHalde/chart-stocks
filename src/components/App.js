@@ -17,13 +17,14 @@ import toastr from 'toastr';
 class App extends Component {
   constructor(props) {
     super(props);
-    let socket = io('https://th-chartstock.herokuapp.com');
-    // this.socket = io('http://localhost');
+
+    // throws error if port is mentioned for production build on heroku
+    this.socket = io(`https://th-chartstock.herokuapp.com`);
   }
 
   componentDidMount() {
-    this.socket.on('connectionSuccess', () => {
-			return toastr.warning('Socket connnected ');
+    this.socket.on('connectionSuccess', data => {
+			toastr.warning('Connnected to server');
 		});
 		this.socket.on('stockAdded', stock => {
 			this.props.actions.addStock(stock);

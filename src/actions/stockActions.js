@@ -48,7 +48,9 @@ export function removeStock(stockCode, socket = null) {
   stockCode = stockCode.toUpperCase();
 
   return dispatch => {
-    socket.emit('removeStock', stockCode);
+    if (socket) {
+      socket.emit('removeStock', stockCode);
+    }
     dispatch(removeStockSuccess(stockCode));
   };
 }
