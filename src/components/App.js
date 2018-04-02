@@ -17,9 +17,11 @@ import toastr from 'toastr';
 class App extends Component {
   constructor(props) {
     super(props);
-
+    
     // throws error if port is mentioned for production build on heroku
     this.socket = io(`https://th-chartstock.herokuapp.com`);
+
+    // this.socket = io(`http://localhost:${process.env.PORT}`);
   }
 
   componentDidMount() {

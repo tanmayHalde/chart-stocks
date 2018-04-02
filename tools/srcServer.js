@@ -9,11 +9,11 @@ import Stock from './utils/mongoose/Stock';
 
 // utilities
 import * as mongo from './utils/mongoConfig';
-import handleSocketEvents from './utils/socketEventHandler';
-import handleHttpRequests from './utils/httpRequestHandler';
+import handleSocketEventsAndUpdateSchema from './utils/socketEventHandler';
+import handleHttpRequestsAndUpdateSchema from './utils/httpRequestHandler';
 
 /* eslint-disable no-console */
-const port = 3000;
+const port = process.env.PORT || 3000;
 const app = express();
 const compiler = webpack(config);
 
@@ -30,12 +30,12 @@ app.use(require('webpack-hot-middleware')(compiler));
 mongo.start();
 
 /*----Req handling----*/
-handleHttpRequests(app);
+handleHttpRequestsAndUpdateSchema(app, Stock);
 
 /*----Socket----*/
 let server = http.createServer(app);
 let io = require('socket.io')(server);
-handleSocketEvents(io);
+handleSocketEventsAndUpdateSchema(io, Stock);
 
 server.listen(port, function(err) {
   if (err) {

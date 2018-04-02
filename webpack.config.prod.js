@@ -1,9 +1,12 @@
 import webpack from 'webpack';
 import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+// import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import dotenv from 'dotenv';
 dotenv.config();
+
+// for local server
+// process.env.PORT = 3000;
 
 const GLOBALS = {
   'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
@@ -12,7 +15,7 @@ const GLOBALS = {
 };
 
 export default {
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'source-map',
   entry: './src/index',
   target: 'web',
   output: {
@@ -26,7 +29,8 @@ export default {
   plugins: [
     new webpack.DefinePlugin(GLOBALS),
     new ExtractTextPlugin('styles.css'),
-    new UglifyJsPlugin() 
+    // new UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin()
   ],
   module: {
     rules: [  

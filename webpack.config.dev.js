@@ -1,10 +1,14 @@
 import webpack from 'webpack';
 import path from 'path';
+
 import dotenv from 'dotenv';
 dotenv.config(); 
 
+process.env.PORT = 3000;
+
 const GLOBALS = {
-  'process.env.API_KEY': JSON.stringify(process.env.API_KEY)
+  'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
+  'process.env.PORT': JSON.stringify(process.env.PORT)
 };
 
 export default {
