@@ -19,7 +19,7 @@ export function loadStocks() {
         });
       })
       .catch(error => {
-        toastr.warning('Error loading stocks from server!')
+        toastr.warning('Error loading stocks from server!');
       });
   };
 }

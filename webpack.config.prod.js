@@ -1,10 +1,11 @@
 import webpack from 'webpack';
 import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import Dotenv from 'dotenv-webpack';
 
 const GLOBALS = {
-  'process.env.NODE_ENV': JSON.stringify('production'),
-  // 'process.env.API_KEY': JSON.stringify('-ar_PDsmkJwNtrQNLqsn'),
+  'process.env.NODE_ENV': JSON.stringify('production')
 };
 
 export default {
@@ -20,9 +21,10 @@ export default {
     contentBase: './dist'
   },
   plugins: [
-    new webpack.DefinePlugin(GLOBALS),    // allows to create global constants
-    new ExtractTextPlugin('styles.css'),  // extracts the css file into a seperate file
-    new webpack.optimize.UglifyJsPlugin() // minification 
+    new Dotenv(),
+    new webpack.DefinePlugin(GLOBALS),
+    new ExtractTextPlugin('styles.css'),
+    new UglifyJsPlugin() 
   ],
   module: {
     rules: [  

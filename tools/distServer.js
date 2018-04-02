@@ -7,8 +7,11 @@ import compression from 'compression';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import Stock from './utils/mongoose/Stock';
+import dotenv from 'dotenv';
+dotenv.config();
 
 /* eslint-disable no-console */
+let port = process.env.PORT || 3000;
 const app = express();
 
 app.use(compression());
@@ -18,15 +21,18 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('dist'));
 
 /*----DB setup----*/
-let db = mongoose.connection.openUri(`mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSCODE}` +
+// console.log(`Username=${process.env.DB_USER}:${process.env.DB_PASSCODE}`);
+mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASSCODE}` +
 	`@ds231229.mlab.com:31229/th-freecodecamp`);
 
+let db = mongoose.connection;
 db.on('error', err => {
-	console.log('FAILED to connect to mongoose'.underline.bold.red);
+	console.log('Connection to mLab failed'.bold.red);
 	console.error(err);
 });
+
 db.on('connected', () => {
-	console.log('connected to mongoose');
+	console.log('Connected to mLab'.green);
 });
 
 /*----Req handling----*/
@@ -44,15 +50,14 @@ app.get('/stocks', function(req, res) {
 //--------SOCKET
 let server = http.createServer(app);
 let io = require('socket.io')(server);
-server.listen(process.env.PORT || 3000, function(err) {
+console.log("Setting port for app...".yellow);
+server.listen(port, function(err) {
   if (err) {
     console.log(err);
+	} else {
+		console.log(`Listening on port ${port}...`);
 	}
 });
-// 	 else {
-//     open(`http://localhost:${port}`);
-//   }
-// });
 
 io.on('connect', function(socket) {
 	console.log('New client connected, id: ', socket.id);
