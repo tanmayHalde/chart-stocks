@@ -5,4 +5,4 @@ bin
 packages
 *lock.*
 *exe*
-.env
+*.env*
