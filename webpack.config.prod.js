@@ -1,7 +1,6 @@
 import webpack from 'webpack';
 import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-// import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -29,7 +28,6 @@ export default {
   plugins: [
     new webpack.DefinePlugin(GLOBALS),
     new ExtractTextPlugin('styles.css'),
-    // new UglifyJsPlugin()
     new webpack.optimize.UglifyJsPlugin()
   ],
   module: {

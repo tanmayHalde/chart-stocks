@@ -1,12 +1,9 @@
 import http from 'http';
 import express from 'express';
-// import cors from 'cors';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import morgan from 'morgan';
 import Stock from './utils/mongoose/Stock';
-
-// import path from 'path';
 
 // utilities
 import * as mongo from './utils/mongoConfig';
@@ -31,21 +28,10 @@ app.use(function(req, res, next) {
 /*----DB setup----*/
 mongo.start();
 
-/*----Req handling----*/
+/*----HTTP Requests----*/
 handleHttpRequestsAndUpdateSchema(app, Stock);
-// app.get('/', function(req, res) {
-// 	res.sendFile(path.join( __dirname, '../dist/index.html'));
-// });
 
-// app.get('/stocks', function(req, res) {
-// 	Stock.find({}, (err, polls, next) => {
-// 		if (err) return next(err);
-// 		console.log('Loading stocks ', polls);
-// 		return res.status(200).json(polls);
-// 	});
-// });
-
-/*----Socket----*/
+/*----Socket Events----*/
 let server = http.createServer(app);
 let io = require('socket.io')(server);
 handleSocketEventsAndUpdateSchema(io, Stock);
