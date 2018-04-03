@@ -11,7 +11,6 @@ dotenv.config();
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 // import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
-
 const GLOBALS = {
   'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
   'process.env.NODE_ENV': JSON.stringify('production'),
