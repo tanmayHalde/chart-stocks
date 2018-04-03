@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import moment from 'moment';
 import moment_timezone from 'moment-timezone';
 
@@ -20,13 +19,13 @@ export function currentClosingPrice(stockData) {
  * Since quandl does not provides real time value, price variation
  * is calculated from the closing values of last 2 days
  * @param stockData
- * @return price change rounded to 2 decimals
+ * @return price change to 2 decimals
  */
 export function currentPriceChange(stockData) {
   let currentClosePrice = currentClosingPrice(stockData);
   let previousClosePrice = previousClosingPrice(stockData);
   
-  return _.floor(currentClosePrice - previousClosePrice, 2);
+  return (currentClosePrice - previousClosePrice).toFixed(2);
 }
 
 /**
@@ -38,8 +37,8 @@ export function dailyPercentChange(stockData) {
   const priceVariation = currentPriceChange(stockData);
   const previousClosePrice = previousClosingPrice(stockData);
 
-  let percentChange = _.divide(priceVariation, previousClosePrice) * 100;
-  percentChange = _.floor(percentChange, 2);
+  let percentChange = (priceVariation / previousClosePrice) * 100;
+  percentChange = (percentChange).toFixed(2);
 
   return percentChange;
 }
@@ -76,16 +75,21 @@ export function getStockCodesFromProps(stocks) {
 
 /**
  * Determine if stock data already rendered.
- * @param stockCodes stocks codes rendered
+ * @param stockCodes array of stock codes already rendered
  * @param newStockCode
  * @return 'true' if stock already rendered on chart, 'false' otherwise  
  */
 export function isStockPresent(stockCodes, newStockCode) {
-  return _.includes(stockCodes, newStockCode.toUpperCase());
+  return stockCodes.includes(newStockCode);
 }
 
+/**
+ * Helper to check if stock data is empty
+ * @param stocks array of stocks data 
+ * @return 'true' if stocks array is empty, 'false' otherwise
+ */
 export function isStockListEmpty(stocks) {
-  return _.isEmpty(stocks);
+  return stocks.length === 0;
 }
 
 /**

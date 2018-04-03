@@ -59,7 +59,7 @@ class SearchBox extends Component {
 
     if (this.isInputBlank() || this.isInvalidInput(stockCode)) {
       toastr.warning('Invalid stock code!');
-    } else if (isStockPresent(this.props.stocks, stockCode)) {
+    } else if (isStockPresent(this.props.stocks, stockCode.toUpperCase())) {
       toastr.warning('Stock already exists !');
     } else {
       this.addStock(stockCode);
