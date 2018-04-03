@@ -8,9 +8,9 @@ For dev build: npm run start
 For prod build: num run build
 
 ## TECHNOLOGIES
-**FRONT END:** React/Redux, Bootstrap, Sass  
-**BACK END:** Node, Express, SocketIO, Mongoose, MongoDB  
-**API/SERVICES:** Quandl(for stock data), mLab(for cloud based MongoDB)  
-**TOOLS:** Webpack  
+**Client:** React/Redux, Bootstrap, Sass  
+**Server:** Node, Express, SocketIO, Mongoose, MongoDB  
+**Api/Services:** Quandl(for stock data), mLab(for cloud based MongoDB)  
+**Tools:** Webpack  
 
 
