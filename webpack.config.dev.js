@@ -1,5 +1,7 @@
-import webpack from 'webpack';
 import path from 'path';
+import webpack from 'webpack';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 import dotenv from 'dotenv';
 dotenv.config(); 
@@ -31,7 +33,8 @@ export default {
   plugins: [
     new webpack.DefinePlugin(GLOBALS),          // allows to create global constants
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new BundleAnalyzerPlugin()
   ],
   module: {
     rules: [  

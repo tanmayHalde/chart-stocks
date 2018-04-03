@@ -1,11 +1,16 @@
-import webpack from 'webpack';
 import path from 'path';
+import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import dotenv from 'dotenv';
 dotenv.config();
 
 // for local server
 // process.env.PORT = 3000;
+
+// webpack experimental plugins
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+// import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+
 
 const GLOBALS = {
   'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
@@ -14,7 +19,7 @@ const GLOBALS = {
 };
 
 export default {
-  devtool: 'source-map',
+  devtool: 'cheap-source-map',
   entry: './src/index',
   target: 'web',
   output: {
@@ -28,7 +33,11 @@ export default {
   plugins: [
     new webpack.DefinePlugin(GLOBALS),
     new ExtractTextPlugin('styles.css'),
-    new webpack.optimize.UglifyJsPlugin()
+    new UglifyJsPlugin({
+      cache: true,
+      parallel: true
+    }),
+    // new BundleAnalyzerPlugin()
   ],
   module: {
     rules: [  
