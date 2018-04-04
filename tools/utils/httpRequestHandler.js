@@ -2,9 +2,13 @@ import path from 'path';
 
 export default function handleHttpRequestsAndUpdateSchema(app, Stock) {
   app.get('/', function(req, res) {
-    if(process.env.NODE_ENV === 'production' ) {
+    if (process.env.NODE_ENV === 'production' ) {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept");
       res.sendFile(path.join( __dirname, '../dist/index.html'));
     } else {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept");
       res.sendFile(path.join( __dirname, '../../src/index.html'));
     }
   });
