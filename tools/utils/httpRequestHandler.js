@@ -5,6 +5,8 @@ export default function handleHttpRequestsAndUpdateSchema(app, Stock) {
     if (process.env.NODE_ENV === 'production' ) {
       res.header("Access-Control-Allow-Origin", "*");
       res.header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept");
+      res.header('Cache-Control', 'no-cache, no-store');
+      res.header('Pragma', 'no-cache');
       res.sendFile(path.join( __dirname, '../dist/index.html'));
     } else {
       res.header("Access-Control-Allow-Origin", "*");
