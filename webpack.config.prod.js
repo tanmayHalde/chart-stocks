@@ -18,7 +18,7 @@ const GLOBALS = {
 };
 
 export default {
-  devtool: 'cheap-source-map',
+  // devtool: 'cheap-source-map',
   entry: './src/index',
   target: 'web',
   output: {
@@ -45,8 +45,12 @@ export default {
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
-            {loader: ("css-loader"), options: {sourceMap: true}},
-            {loader: ("sass-loader"), options: {sourceMap: true}}
+            {loader: ("css-loader"), 
+              // options: {sourceMap: true}
+            },
+            {loader: ("sass-loader"), 
+              // options: {sourceMap: true}
+            }
           ]
         })
       },
