@@ -1,15 +1,12 @@
 import path from 'path';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import dotenv from 'dotenv';
 dotenv.config();
 
 // for local server
 // process.env.PORT = 3000;
-
-// webpack experimental plugins
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
-// import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 const GLOBALS = {
   'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
@@ -35,8 +32,7 @@ export default {
     new UglifyJsPlugin({
       cache: true,
       parallel: true
-    }),
-    // new BundleAnalyzerPlugin()
+    })
   ],
   module: {
     rules: [  

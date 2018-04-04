@@ -26,7 +26,7 @@ class App extends Component {
 
   componentDidMount() {
     this.socket.on('connectionSuccess', data => {
-			toastr.warning('Connnected to server');
+			toastr.success('Connnected to server');
 		});
 		this.socket.on('stockAdded', stock => {
 			this.props.actions.addStock(stock);

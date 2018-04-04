@@ -1,5 +1,4 @@
-import moment from 'moment';
-import moment_timezone from 'moment-timezone';
+import dateformat from 'dateformat';
 
 /**
  * Last closing value for the stock
@@ -10,8 +9,8 @@ export function currentClosingPrice(stockData) {
   // index based on Quandl api
   const ADJUSTED_CLOSE_INDEX = 11;
 
-  // NOTE: reponse received from Quandl is sorted in ascending order
-  // i.e. from the earliest available date
+  // NOTE: reponse received from Quandl is from the earliest available date
+  // for compatibility with highstock 
   return stockData[stockData.length-1][ADJUSTED_CLOSE_INDEX];
 }
 
@@ -93,24 +92,15 @@ export function isStockListEmpty(stocks) {
 }
 
 /**
- * Format day received from Quandl
- * @param date Date received in string format
- * @return date in 'LL' format
- */
-export function lastUpdateDate(date) {
-  return moment(date).format('LL');
-}
-
-/**
  * Format time received from Quandl
  * @param date Date received in UTC format
- * @return time in 'h:mm z' format
+ * @return time in long format
  */
 export function lastUpdateTime(date) {
   let formattedDate = correctedDate(date);
-  formattedDate = moment_timezone(formattedDate);
-  
-  return formattedDate.tz('America/New_York').format('h:mm a z');
+  formattedDate = new Date(formattedDate);
+
+  return dateformat(formattedDate, 'dddd, mmmm dS, yyyy, h:MM TT Z');
 }
 
 export function previousClosingPrice(stockData) {
@@ -165,4 +155,26 @@ function stockDate(stockData) {
   // NOTE: Date index is specific to quandl's api response
   const DATE_INDEX = 0;
   return Date.parse(stockData[DATE_INDEX]);
+}
+
+export function getStockItemProperties(item) {
+  const stockName = formattedStockName(item.dataset.name);
+  const stockCode = item.dataset.dataset_code;
+  const currentValue = currentClosingPrice(item.dataset.data);
+  const priceChange = currentPriceChange(item.dataset.data);
+  const percentChange = dailyPercentChange(item.dataset.data);
+  const lastUpdated = lastUpdateTime(item.dataset.refreshed_at);
+  const previousClose = previousClosingPrice(item.dataset.data);
+  const variation = priceChange > 0 ? 'positive' : 'negative';
+
+  return {
+    stockName,
+    stockCode,
+    currentValue,
+    priceChange,
+    percentChange,
+    lastUpdated,
+    previousClose,
+    variation
+  };
 }
