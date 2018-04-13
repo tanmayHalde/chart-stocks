@@ -18,11 +18,6 @@ app.use(morgan('short'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(compression());
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept");
-  next();
-});
 app.use(express.static('dist'));
 
 /*----DB setup----*/

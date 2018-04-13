@@ -9,7 +9,6 @@ dotenv.config();
 process.env.PORT = 3000;
 
 const GLOBALS = {
-  'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
   'process.env.PORT': JSON.stringify(process.env.PORT)
 };
 

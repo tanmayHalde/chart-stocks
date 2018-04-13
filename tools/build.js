@@ -16,7 +16,7 @@ webpack(webpackConfig).run((err, stats) => {
 
   const jsonStats = stats.toJson();
   if (jsonStats.hasErrors) {
-    return jsonStats.errors.map(error => console.log(error.underline.red));
+    return jsonStats.errors.map(error => console.log(error.red));
   }
 
   if (jsonStats.hasWarnings) {
@@ -27,7 +27,7 @@ webpack(webpackConfig).run((err, stats) => {
   // console.log(`Webpack stats: ${stats}`);
 
   /* build succeeded */
-  console.log('App compiled in production mode.'.underline.green);
+  console.log('App compiled in production mode.'.bold.green);
 
   return 0;
 });
