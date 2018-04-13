@@ -1,13 +1,14 @@
 import axios from 'axios';
 import * as mongo from './mongoUtils';
 import * as event from '../../src/actions/eventTypes';
+import * as action from '../../src/actions/actionTypes';
 
 export default function handleSocketEventsAndUpdateSchema(io, Stock) {
 	io.on('connect', function(socket) {
 		console.log('New client connected, id:'.bold.green, socket.id);
-		socket.emit('clientConnected', 'Connected to server');
+		socket.emit(event.CLIENT_CONNECTED_EVENT, 'Connected to server');
 		
-		socket.on('server/addStock', function(stockCode) {
+		socket.on(action.ADD_STOCK_SOCKET, function(stockCode) {
 			const url = `https://www.quandl.com/api/v3/datasets/WIKI/${stockCode}.json?` +
       `order=asc&api_key=${process.env.API_KEY}`;
 
@@ -27,7 +28,7 @@ export default function handleSocketEventsAndUpdateSchema(io, Stock) {
 				});
 		});
 
-		socket.on('server/loadStocks', function() {
+		socket.on(action.LOAD_STOCK_SOCKET, function() {
 			mongo.load(Stock)
 				.then(stocks => {
 					const eventName = stocks.length > 0 ? event.STOCKS_LOADED_EVENT : 
@@ -40,7 +41,7 @@ export default function handleSocketEventsAndUpdateSchema(io, Stock) {
 				});
 		});
 	
-		socket.on('server/removeStock', function(stockCode) {
+		socket.on(action.REMOVE_STOCK_SOCKET, function(stockCode) {
 			mongo.removeDocs(Stock, stockCode)
 				.then(() => {
 					socket.emit(event.STOCK_REMOVED_EVENT, stockCode);
