@@ -5,6 +5,7 @@ import { addStock } from '../../actions/stockActions';
 import { bindActionCreators } from 'redux';
 import { getStockCodesFromProps, isStockPresent } from '../../utils/stockDataHandler';
 
+import { warning } from 'toastr';
 import {
   Form, 
   FormGroup, 
@@ -13,7 +14,6 @@ import {
   Glyphicon
 } from "react-bootstrap";
 import './SearchBox.scss';
-import toastr from 'toastr';
 
 class SearchBox extends Component {
   constructor(props) {
@@ -21,29 +21,15 @@ class SearchBox extends Component {
     this.state = {
       value: ''
     };
-    this.addStock = this.addStock.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.verifyInputAndAddStock = this.verifyInputAndAddStock.bind(this);
-  }
-
-  addStock(stockCode) {
-    this.props.addStock(stockCode, this.props.socket)
-      .then(() => {
-        toastr.success('Stock added');
-        this.setState({
-          value: ''
-        });
-      })
-      .catch(err => {
-        toastr.warning('Stock code not found');
-      });
+    this.addStockIfValid = this.addStockIfValid.bind(this);
   }
 
   isInputBlank() {
-    return this.state.value.length < 1;
+    return this.state.value.length < 2;
   }
 
-  isInvalidInput(stockCode) {
+  hasSpecialChars(stockCode) {
     return RegExp(/[~`!#$%^&*+=\-[\]\\';,/{}|\\".:<>?]/g).test(stockCode);
   }
 
@@ -53,23 +39,26 @@ class SearchBox extends Component {
     });
   }
 
-  verifyInputAndAddStock(e) {
+  addStockIfValid(e) {
     e.preventDefault();
     const stockCode = this.state.value;
 
-    if (this.isInputBlank() || this.isInvalidInput(stockCode)) {
-      toastr.warning('Invalid stock code!');
+    if (this.isInputBlank() || this.hasSpecialChars(stockCode)) {
+      warning('Invalid stock code!');
     } else if (isStockPresent(this.props.stocks, stockCode.toUpperCase())) {
-      toastr.warning('Stock already exists !');
+      warning('Stock already exists !');
     } else {
-      this.addStock(stockCode);
+      this.props.addStock(stockCode);
+      this.setState({
+        value: ''
+      })
     }
   }
 
   render() {
     return (
       <div className="searchbox-container row">
-        <Form onSubmit={this.verifyInputAndAddStock}>
+        <Form onSubmit={this.addStockIfValid}>
           <FormGroup className="col-xs-8 col-xs-offset-1 col-md-4 col-md-offset-4">
             <FormControl
               type="text" 
@@ -78,11 +67,10 @@ class SearchBox extends Component {
               onChange={this.handleInputChange}
             />
           </FormGroup>
-
           <Button 
             type="button"
             className="search-button col-xs-2 col-md-1"
-            onClick={this.verifyInputAndAddStock}
+            onClick={this.addStockIfValid}
             disabled={this.isInputBlank()}
             bsStyle="primary"
           >
@@ -97,7 +85,6 @@ class SearchBox extends Component {
 
 SearchBox.propTypes = {
   addStock: PropTypes.func.isRequired,
-  socket: PropTypes.object.isRequired,
   stocks: PropTypes.array.isRequired
 };
 

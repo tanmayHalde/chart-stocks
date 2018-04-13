@@ -14,6 +14,10 @@ export default function stockReducer(state = initialState.stocks, action) {
           return stock.dataset.dataset_code !== action.stockCode;
         })
       ];
+    case types.LOAD_STOCKS_SUCCESS:
+      return [
+        ...action.stocks
+      ];
     default:
       return state;
   }

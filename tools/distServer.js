@@ -6,7 +6,7 @@ import morgan from 'morgan';
 import Stock from './utils/mongoose/Stock';
 
 /*----Utilities----*/
-import * as mongo from './utils/mongoConfig';
+import * as mongo from './utils/mongoUtils';
 import handleSocketEventsAndUpdateSchema from './utils/socketEventHandler';
 import handleHttpRequestsAndUpdateSchema from './utils/httpRequestHandler';
 

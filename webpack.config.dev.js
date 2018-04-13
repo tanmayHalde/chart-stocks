@@ -34,7 +34,7 @@ export default {
     new webpack.DefinePlugin(GLOBALS),          // allows to create global constants
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new BundleAnalyzerPlugin()
+    // new BundleAnalyzerPlugin()
   ],
   module: {
     rules: [  

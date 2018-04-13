@@ -8,7 +8,7 @@ import config from '../webpack.config.dev';
 import Stock from './utils/mongoose/Stock';
 
 // utilities
-import * as mongo from './utils/mongoConfig';
+import * as mongo from './utils/mongoUtils';
 import handleSocketEventsAndUpdateSchema from './utils/socketEventHandler';
 import handleHttpRequestsAndUpdateSchema from './utils/httpRequestHandler';
 

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 let stockSchema = new mongoose.Schema({
-  stockName: String
+  dataset: {}
 });
 let Stock = mongoose.model('Stock', stockSchema);
 

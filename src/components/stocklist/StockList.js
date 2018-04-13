@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import toastr from 'toastr';
 import { removeStock } from '../../actions/stockActions';
 import { isStockListEmpty } from '../../utils/stockDataHandler';
 import StockListItem from './listItem/StockListItem';
 import { ListGroup } from 'react-bootstrap';
 import './StockList.scss';
+import { LIST_EMPTY_STATUS } from '../../actions/statusTypes';
 
 class StockList extends Component {
   constructor(props) {
@@ -39,13 +39,12 @@ class StockList extends Component {
 
   removeStock(event) {
     const code = event.target.id;
-    this.props.removeStock(code, this.props.socket);
-    toastr.warning('Stock removed');
+    this.props.removeStock(code);
   }
 
   render() {
     let content = isStockListEmpty(this.state.stocks) ? (
-      <div className="empty-list-status text-muted"> No data </div>
+      <div className="empty-list-status text-muted"> {LIST_EMPTY_STATUS} </div>
     ) : (
       this.getListItems()
     );
@@ -62,7 +61,6 @@ class StockList extends Component {
 
 StockList.propTypes = {
   removeStock: PropTypes.func.isRequired,
-  socket: PropTypes.object.isRequired,
   stocks: PropTypes.array.isRequired
 };
 

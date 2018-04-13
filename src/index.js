@@ -2,7 +2,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import Routes from './routes';
 import configureStore from './store/configureStore';
@@ -16,6 +16,11 @@ import './sass/main.scss';
 
 const store = configureStore();
 store.dispatch(loadStocks());
+
+// if (process.env.NODE_ENV !== 'production') {
+//   const { whyDidYouUpdate } = require('why-did-you-update');
+//   whyDidYouUpdate(React);
+// }
 
 render(
   <Provider store={store}>
