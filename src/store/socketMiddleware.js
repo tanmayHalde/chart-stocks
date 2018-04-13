@@ -33,11 +33,11 @@ export default function addSocketMiddleware(socket, criteria = [],
     });
 
     socket.on(event.STOCK_ADD_FAILED_EVENT, () => {
-      error(status.ADD_STOCK_FAILED_STATUS);
+      error(status.STOCK_ADD_FAILED_STATUS);
     });
 
-    socket.on(event.STOCK_FETCH_FAILED_EVENT, data => {
-      error(status.FETCH_STOCK_FAILED_STATUS);
+    socket.on(event.STOCK_NOT_FOUND_EVENT, () => {
+      error(status.STOCK_NOT_FOUND_STATUS);
     });
 
     socket.on(event.STOCK_REMOVE_FAILED_EVENT, data => {

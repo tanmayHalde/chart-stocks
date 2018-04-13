@@ -5,7 +5,7 @@ import { addStock } from '../../actions/stockActions';
 import { bindActionCreators } from 'redux';
 import { getStockCodesFromProps, isStockPresent } from '../../utils/stockDataHandler';
 
-import { warning } from 'toastr';
+import { error } from 'toastr';
 import {
   Form, 
   FormGroup, 
@@ -44,14 +44,14 @@ class SearchBox extends Component {
     const stockCode = this.state.value;
 
     if (this.isInputBlank() || this.hasSpecialChars(stockCode)) {
-      warning('Invalid stock code!');
+      error('Invalid stock code!');
     } else if (isStockPresent(this.props.stocks, stockCode.toUpperCase())) {
-      warning('Stock already exists !');
+      error('Stock already exists !');
     } else {
       this.props.addStock(stockCode);
       this.setState({
         value: ''
-      })
+      });
     }
   }
 

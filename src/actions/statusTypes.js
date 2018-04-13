@@ -1,6 +1,7 @@
-export const ADD_STOCK_FAILED_STATUS = 'Stock not found';
 export const ADD_STOCK_SUCCESS_STATUS = 'Stock added';
 export const FETCH_STOCK_FAILED_STATUS = 'Failed to fetch stock';
+export const STOCK_ADD_FAILED_STATUS = 'Failed to save stock to db';
+export const STOCK_NOT_FOUND_STATUS = 'Stock not found';
 
 export const CLIENT_CONNECTED_STATUS = 'Connected to server';
 export const CLIENT_DISCONNECTED_STATUS = 'Client disconnected';

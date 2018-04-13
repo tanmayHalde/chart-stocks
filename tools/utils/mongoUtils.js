@@ -1,18 +1,18 @@
 import mongoose from 'mongoose';
 import colors from 'colors';
 import dotenv from 'dotenv';
-import { loadStocks } from '../../src/actions/stockActions';
 dotenv.config();
+import { STOCK_ADD_FAILED_EVENT } from '../../src/actions/eventTypes';
 
 export function addDocs(Stock, stock) {
   return new Promise((resolve, reject) => {
-    let stockItem = new Stock({dataset: stock});
+    let stockItem = new Stock({dataset: stock.dataset});
     stockItem.save((err, res) => {
       if (err) {
         console.log('Error saving data to db: '.red);
-        reject(err);
+        reject(STOCK_ADD_FAILED_EVENT);
       } else {
-        console.log(`New stock added to server: ${stock.dataset_code}`.bold.green);
+        console.log(`New stock added to server: ${stock.dataset.dataset_code}`.bold.green);
         resolve();
       }
     });

@@ -13,17 +13,17 @@ export default function handleSocketEventsAndUpdateSchema(io, Stock) {
 
 			axios.get(url)
 				.then(res => {
-					mongo.addDocs(Stock, res.data.dataset)
+					mongo.addDocs(Stock, res.data)
 						.then(() => {
 							socket.emit(event.STOCK_ADDED_EVENT, res.data);
 							socket.broadcast.emit(event.STOCK_ADDED_EVENT, res.data);
 						})
 						.catch(err => {
-							socket.emit(event.STOCK_ADD_FAILED_EVENT, err);
+							socket.emit(err, '');
 						});
 				})
 				.catch(error => {
-					socket.emit(event.STOCK_FETCH_FAILED_EVENT, error);
+					socket.emit(event.STOCK_NOT_FOUND_EVENT, '');
 				});
 		});
 
